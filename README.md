@@ -53,8 +53,8 @@ This paper maps the discrete topology of the integers. It does not prove the Col
 │   └── ThreeCorrals.lean           # L2: Structural channel definitions
 ├── python/
 │   ├── krein_riemann_bench.py      # Visualization of the Biorthogonality Test
-│   └── prime_gap_analysis.py       # Data analysis for twin primes and gaps (To be added 23/11/26)
+│   └── prime_gap_analysis.py       # Data analysis for twin primes and gaps
 ├── figures/
 │   ├── biorthogonality_map.png     # The phase map (critical line)
-│   └── ricci_flow.png              # The swells and necks of the tree (citation: Wikipedia)
+│   └── ricci_flow.png              # The swells and necks of the tree
 └── README.md                       # This file
