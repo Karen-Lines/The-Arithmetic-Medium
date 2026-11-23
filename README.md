@@ -46,15 +46,15 @@ This paper maps the discrete topology of the integers. It does not prove the Col
 │   └── Arithmetic_Medium.tex       # Paper 2: The discrete tree
 ├── lean/
 │   ├── PrimeStructure.lean         # L1: Prime Parent, Goldbach, Twin Primes
-│   ├── HexagonalLemma.lean         # L1: Beal Shadow, +3 offset
+│   ├── HexagonalLemma.lean         # L1: Beal Shadow, +3 offset 
 │   ├── PerfectNumbers.lean         # L1: Parity Fulcrum, Mersenne Blueprint
 │   ├── GrahamShortcut.lean         # L1: 2-adic forced trajectory
 │   ├── BiorthogonalityTest.lean    # L2: Critical line structural theorem
 │   └── ThreeCorrals.lean           # L2: Structural channel definitions
 ├── python/
 │   ├── krein_riemann_bench.py      # Visualization of the Biorthogonality Test
-│   └── prime_gap_analysis.py       # Data analysis for twin primes and gaps
+│   └── prime_gap_analysis.py       # Data analysis for twin primes and gaps (To be added 23/11/26)
 ├── figures/
 │   ├── biorthogonality_map.png     # The phase map (critical line)
-│   └── ricci_flow.png              # The swells and necks of the tree
+│   └── ricci_flow.png              # The swells and necks of the tree (citation: Wikipedia)
 └── README.md                       # This file
