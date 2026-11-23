@@ -1,0 +1,45 @@
+import Mathlib
+
+namespace MEADium.HexagonalLemma
+
+/-- The centered hexagonal number. -/
+def CenteredHex (m : ℕ) : ℕ := 3 * m * (m - 1) + 1
+
+/-- The v2 forcing fact: 3n^2 + 1 ≡ 4 (mod 8) for odd n. -/
+theorem hex_v2 (k : ℕ) : (3 * (2*k+1)^2 + 1) % 8 = 4 := by
+  have hsq : (2*k+1)^2 = 4*(k*(k+1)) + 1 := by ring
+  have hk : Even (k*(k+1)) := Nat.even_mul_succ_self k
+  obtain ⟨c, hc⟩ := hk
+  rw [hsq, hc]
+  omega
+
+/-- The Hexagonal Lemma: (3n^2 + 1)/4 = H_{k+1}. -/
+theorem hex_lemma (k : ℕ) :
+    (3 * (2*k+1)^2 + 1) / 4 = CenteredHex (k+1) := by
+  have h4 : 4 ∣ 3 * (2*k+1)^2 + 1 := by
+    have := hex_v2 k; omega
+  obtain ⟨c, hc⟩ := h4
+  unfold CenteredHex
+  have key : 3 * (2*k+1)^2 + 1 = 4 * (3*k*k + 3*k + 1) := by ring
+  omega
+
+/-- The Beal Shadow: Values fail, depths align. -/
+theorem beal_shadow :
+    (3^2 + 4^3 ≠ 5^4) ∧
+    (ST (3^2) + ST (4^3) = ST (5^4)) := by
+  constructor
+  · norm_num
+  · native_decide
+
+/-- The Collatz function (needed for ST). -/
+def collatz (n : ℕ) : ℕ :=
+  if n % 2 = 0 then n / 2 else 3 * n + 1
+
+/-- The stopping time to 1. -/
+def ST (n : ℕ) : ℕ :=
+  if n = 1 then 0 
+  else if n = 0 then 0
+  else ST (collatz n) + 1
+  termination_by n
+
+end MEADium.HexagonalLemma

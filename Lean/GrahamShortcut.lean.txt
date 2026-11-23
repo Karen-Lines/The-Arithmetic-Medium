@@ -1,0 +1,58 @@
+import Mathlib
+
+namespace MEADium.GrahamShortcut
+
+/-- Graham's Number G is odd and ends in 7. -/
+axiom G : ℕ
+axiom G_ends_7 : G % 10 = 7
+axiom G_is_power_of_3 : G % 3 = 0
+
+/-- Step 1: 3G+1 ends in 2. -/
+theorem step_1_mod_10 : (3 * G + 1) % 10 = 2 := by
+  have h := G_ends_7
+  omega
+
+/-- Step 1 (Parity): G ≡ 3 mod 4, so 3G+1 ≡ 2 mod 4. -/
+theorem step_1_mod_4 : (3 * G + 1) % 4 = 2 := by
+  have h1 : G % 2 = 1 := by omega
+  have h2 : G % 3 = 0 := G_is_power_of_3
+  -- G ≡ 7 mod 10 and G ≡ 0 mod 3 => G ≡ 27 mod 30 => G ≡ 3 mod 4.
+  have h3 : G % 4 = 3 := by
+    have h_10 : G % 10 = 7 := G_ends_7
+    have h_3 : G % 3 = 0 := G_is_power_of_3
+    -- The system G ≡ 7 (mod 10), G ≡ 0 (mod 3) has solution G ≡ 27 (mod 30).
+    -- 27 mod 4 = 3.
+    omega
+  omega
+
+/-- Step 2: N1 = (3G+1)/2 is odd. -/
+def N1 : ℕ := (3 * G + 1) / 2
+
+theorem N1_odd : N1 % 2 = 1 := by
+  unfold N1
+  have h := step_1_mod_4
+  omega
+
+/-- Step 3: 3N1+1 is divisible by 4. -/
+theorem step_3_mod_8 : (3 * N1 + 1) % 8 = 4 := by
+  unfold N1
+  -- G ≡ 3 mod 8 (since G ≡ 27 mod 30 and 27 mod 8 = 3).
+  have h : G % 8 = 3 := by
+    have h_10 : G % 10 = 7 := G_ends_7
+    have h_3 : G % 3 = 0 := G_is_power_of_3
+    omega
+  omega
+
+/-- Step 4: N2 = (9G+5)/8 is odd. -/
+def N2 : ℕ := (9 * G + 5) / 8
+
+theorem N2_odd : N2 % 2 = 1 := by
+  unfold N2
+  -- G ≡ 11 mod 16.
+  have h : G % 16 = 11 := by
+    have h_10 : G % 10 = 7 := G_ends_7
+    have h_3 : G % 3 = 0 := G_is_power_of_3
+    omega
+  omega
+
+end MEADium.GrahamShortcut
