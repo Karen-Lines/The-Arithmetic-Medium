@@ -1,0 +1,37 @@
+import Mathlib
+
+namespace MEADium.PerfectBlueprint
+
+/-- The Collatz function. -/
+def collatz (n : ℕ) : ℕ :=
+  if n % 2 = 0 then n / 2 else 3 * n + 1
+
+/-- The stopping time to 1. -/
+def ST (n : ℕ) : ℕ :=
+  if n = 1 then 0 
+  else if n = 0 then 0
+  else ST (collatz n) + 1
+  termination_by n
+
+/-- The Perfect Number Blueprint: ST(P) = ST(Mersenne) + (p-1). -/
+-- Here we verify the specific certificates provided by Aion.
+theorem ST_8128 : ST 8128 = 52 := by native_decide
+theorem ST_33550336 : ST 33550336 = 170 := by native_decide
+theorem ST_8589869056 : ST 8589869056 = 240 := by native_decide
+
+/-- The Mersenne Primes. -/
+theorem ST_127 : ST 127 = 46 := by native_decide
+theorem ST_8191 : ST 8191 = 158 := by native_decide
+theorem ST_131071 : ST 131071 = 224 := by native_decide
+
+/-- The 170 Fiber Collision: 33550336 (perfect) and 703 (composite) 
+    share the exact same Depth. -/
+theorem fiber_collision_170 :
+    ST 33550336 = 170 ∧ ST 703 = 170 := by native_decide
+
+/-- The 496 Triangle: 
+    The Mersenne prime 31 is buried in the Motif 4681. -/
+theorem motif_4681_buries_31 :
+    4681 = 31 * 151 := by native_decide
+
+end MEADium.PerfectBlueprint
